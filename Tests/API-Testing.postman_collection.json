@@ -1,0 +1,138 @@
+{
+  "info": {
+    "_postman_id": "23004986-db8a-43c3-8df9-c445e532cccc",
+    "name": "API-Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13454805"
+  },
+  "item": [
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "GetPosts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "//@allure.label.suite=postmannewapitestingdemo",
+                  "//@allure.label.story=Verifythepostapireturncorrectdata",
+                  "//@allure.label.categories=demo",
+                  "//@allure.label.owner=naodeng",
+                  "//@allure.label.tag=POSTAPI",
+                  "",
+                  "const Ajv = require('ajv');\r",
+                  "const ajv = new Ajv();\r",
+                  "\r",
+                  "// Define the schema\r",
+                  "const schema = {\r",
+                  "  type: \"array\",\r",
+                  "  items: {\r",
+                  "    type: \"object\",\r",
+                  "    properties: {\r",
+                  "      userId: { type: \"integer\" },\r",
+                  "      id: { type: \"integer\" },\r",
+                  "      title: { type: \"string\" },\r",
+                  "      body: { type: \"string\" }\r",
+                  "    },\r",
+                  "    required: [\"userId\", \"id\", \"title\", \"body\"]\r",
+                  "  }\r",
+                  "};\r",
+                  "\r",
+                  "// Get the response JSON\r",
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "// Validate the response\r",
+                  "const validate = ajv.compile(schema);\r",
+                  "const valid = validate(responseJson);\r",
+                  "\r",
+                  "// Assert the result\r",
+                  "//@allure.label.suite=kanekatiallo",
+                  "",
+                  "pm.test(\"Response schema is valid\", function() {\r",
+                  "  pm.expect(valid).to.be.true;\r",
+                  "\r",
+                  "  if (!valid) {\r",
+                  "    console.log(validate.errors); // Log validation errors if schema is invalid\r",
+                  "  }\r",
+                  "});\r",
+                  "//Check status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "//Check status code name value\r",
+                  "//@allure.label.suite=aleksisss",
+                  "pm.test(\"Status code name has string\", function () {\r",
+                  "    pm.response.to.have.status(\"OK\");\r",
+                  "});\r",
+                  "//Check response time\r",
+                  "//@allure.label.suite=postmannewapitestingdemo",
+                  "//@allure.label.story=Verifythepostapireturncorrectdata",
+                  "//@allure.label.categories=demo",
+                  "//@allure.label.owner=naodeng",
+                  "//@allure.label.tag=POSTAPI",
+                  "",
+                  "pm.test(\"Response time is less than 300ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+                  "});\r",
+                  "//Check response header\r",
+                  "pm.test(\"Content-Type is present\", function () {\r",
+                  "    pm.response.to.have.header(\"Content-Type\");\r",
+                  "});\r",
+                  "//Check first item the userId value\r",
+                  "// @allure.label.parentSuite=WebInterface",
+                  "// @allure.label.suite=EssentialFeatures",
+                  "// @allure.label.subSuite=Authentication",
+                  "pm.test(\"Check userId property value\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    console.log(jsonData); // Log the full response\r",
+                  "    console.log(jsonData[0].userId); // Log the specific property\r",
+                  "    pm.expect(jsonData[0].userId).to.eql(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{BaseURL}}{{Posts}}",
+              "host": ["{{BaseURL}}{{Posts}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": []
+    },
+    {
+      "name": "Albums",
+      "item": []
+    },
+    {
+      "name": "Photos",
+      "item": []
+    },
+    {
+      "name": "Todos",
+      "item": []
+    },
+    {
+      "name": "Users",
+      "item": []
+    }
+  ]
+}
