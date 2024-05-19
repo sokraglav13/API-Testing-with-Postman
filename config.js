@@ -1,3 +1,3 @@
 module.exports = {
-  EXECUTION_ENV: "Development",
+  EXECUTION_ENV: "Development ",
 };
