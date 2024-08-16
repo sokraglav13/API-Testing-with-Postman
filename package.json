@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "newman run Tests/API-Testing.postman_collection.json -e Env/DEvelopment.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results",
+    "test": "newman run Tests/API-Testing.postman_collection.json -e Env/Development.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results",
     "generate-report": "npx allure serve output/allure-results"
   },
   "author": "",
