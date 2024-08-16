@@ -25,7 +25,7 @@ jobs:
       - name: Run API tests
         run: |
           newman run Tests/API-Testing.postman_collection.json \
-            -e Env/DEvelopment.postman_environment.json \
+            -e Env/Development.postman_environment.json \
             --reporters cli,allure,json \
             --reporter-allure-export output/allure-results \
             --reporter-json-export output/newman-results.json
