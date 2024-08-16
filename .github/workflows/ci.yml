@@ -22,6 +22,9 @@ jobs:
       - name: Install Newman
         run: npm install -g newman newman-reporter-allure
 
+      - name: Create output directory
+      run: mkdir -p output/allure-results
+
       - name: Run API tests
         run: |
           newman run Tests/API-Testing.postman_collection.json \
@@ -29,6 +32,9 @@ jobs:
             --reporters cli,allure,json \
             --reporter-allure-export output/allure-results \
             --reporter-json-export output/newman-results.json
+
+      - name: List output directory contents
+        run: ls -R output
 
       - name: Archive Allure Test Results
         if: always()
