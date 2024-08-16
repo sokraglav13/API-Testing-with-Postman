@@ -23,11 +23,23 @@ jobs:
         run: npm install -g newman newman-reporter-allure
 
       - name: Run API tests
-        run: newman run Tests/API-Testing.postman_collection.json -e Env/Development.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results
+        run: |
+          newman run Tests/API-Testing.postman_collection.json \
+            -e Env/DEvelopment.postman_environment.json \
+            --reporters cli,allure,json \
+            --reporter-allure-export output/allure-results \
+            --reporter-json-export output/newman-results.json
 
-      - name: Archive Test Results
+      - name: Archive Allure Test Results
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: allure-results
           path: output/allure-results
+
+      - name: Archive Newman Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: newman-results
+          path: output/newman-results.json
