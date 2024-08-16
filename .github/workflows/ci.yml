@@ -23,7 +23,7 @@ jobs:
         run: npm install -g newman newman-reporter-allure
 
       - name: Run API tests
-        run: newman run Tests/API-Testing.postman_collection.json -e Env/DEvelopment.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results
+        run: newman run Tests/API-Testing.postman_collection.json -e Env/Development.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results
 
       - name: Archive Test Results
         if: always()
