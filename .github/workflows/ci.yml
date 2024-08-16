@@ -23,7 +23,7 @@ jobs:
         run: npm install -g newman newman-reporter-allure
 
       - name: Create output directory
-      run: mkdir -p output/allure-results
+        run: mkdir -p output/allure-results
 
       - name: Run API tests
         run: |
