@@ -13,7 +13,6 @@ This project provides a robust and automated API testing framework using Postman
 - `npm run test` : Run tests cases and generates report files.
 - `npm run generate-report` : Starts local server to provide the test results.
 
-
 # Final Results
 
 ![image](https://github.com/user-attachments/assets/dbe6e7ed-9586-4cf2-8ae0-ed91c530df0e)
