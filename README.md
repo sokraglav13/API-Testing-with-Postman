@@ -8,6 +8,12 @@ Welcome to the API Testing Project! This repository contains a comprehensive sui
 
 This project provides a robust and automated API testing framework using Postman and Newman, seamlessly integrated into a CI/CD pipeline with GitHub Actions. It ensures continuous testing and validation of API endpoints on every code change. Detailed test results are generated and reported using the Allure Reporter, offering clear insights into API performance and reliability. The automated workflow helps maintain high-quality APIs by catching issues early and providing actionable feedback, thus enhancing the overall development process.
 
+# Tools
+
+- Postman: Is a collaboration platform for testing and developing APIs (Application Programming Interfaces)
+- Newman: Is a command-line Collection Runner for Postman. It enables you to run and test a Postman Collection directly from the command line.
+- Allure Reporter: Is an open-source framework designed to create test execution reports.
+
 # Run Tests Locally
 
 - `npm run test` : Run tests cases and generates report files.
