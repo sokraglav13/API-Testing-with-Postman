@@ -1,6 +1,7 @@
 ![postman_newman_allure](https://github.com/user-attachments/assets/7c4b1026-66e1-40a4-be20-49c9afcf0692)
 
 # API-Testing-with-Postman
+[![CI](https://github.com/godpower13/API-Testing-with-Postman/workflows/CI/badge.svg)](https://github.com/godpower13/API-Testing-with-Postman/actions?query=workflow%3ACI)
 
 Welcome to the API Testing Project! This repository contains a comprehensive suite of automated API tests designed to ensure the robustness and reliability of our application endpoints. We leverage Postman's powerful capabilities for creating and managing our test collections. To automate the execution of these tests, we utilize Newman, Postman's command-line tool, which allows us to integrate API testing seamlessly into our CI/CD pipeline. Our test results are meticulously reported using the Allure Reporter, providing clear and actionable insights into the API performance and behavior. The workflow is designed to run these tests automatically on every push and pull request to the main branch, ensuring continuous quality assurance. Detailed test reports are generated and archived as artifacts, making it easy to review and track test outcomes over time. This setup not only streamlines our testing process but also ensures that our APIs remain reliable and performant.
 
