@@ -20,7 +20,7 @@ jobs:
           node-version: "20.12.2" # Specify the Node.js version you need
 
       - name: Install Newman
-        run: npm install -g newman newman-reporter-allure
+        run: npm install
 
       - name: Create output directory
         run: mkdir -p output/allure-results
