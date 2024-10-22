@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, improvements]
   pull_request:
-    branches: [main]
+    branches: [main, improvements]
 
 jobs:
   test:
@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20.12.2" # Specify the Node.js version you need
 
@@ -26,26 +26,45 @@ jobs:
         run: mkdir -p output/allure-results
 
       - name: Run API tests
-        run: |
-          newman run Tests/API-Testing.postman_collection.json \
-            -e Env/Development.postman_environment.json \
-            --reporters cli,allure,json \
-            --reporter-allure-export output/allure-results \
-            --reporter-json-export output/newman-results.json
+        run: npm run test
 
       - name: List output directory contents
         run: ls -R output
 
       - name: Archive Allure Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: allure-results
           path: output/allure-results
 
-      - name: Archive Newman Test Results
-        if: always()
-        uses: actions/upload-artifact@v3
+      - name: Download Allure Results
+        uses: actions/download-artifact@v4
         with:
-          name: newman-results
-          path: output/newman-results.json
+          name: allure-results
+          path: output/allure-results
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build Allure report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: allure-results
+
+      # Publish the Allure report to GitHub Pages
+      - name: Publish test report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history

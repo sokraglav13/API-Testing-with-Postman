@@ -4,16 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "newman run Tests/API-Testing.postman_collection.json -e Env/Development.postman_environment.json --reporters cli,allure --reporter-allure-export output/allure-results",
+    "test": "newman run Tests/API-Testing.postman_collection.json -e Env/Development.postman_environment.json --reporters cli,allure --reporter-allure-resultsDir output/allure-results",
     "generate-report": "npx allure serve output/allure-results"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "newman": "^6.1.2"
+    "newman": "^6.2.0"
   },
   "devDependencies": {
-    "allure-commandline": "^2.29.0",
-    "newman-reporter-allure": "^2.15.1"
+    "allure-commandline": "^2.30.0",
+    "newman-reporter-allure": "^3.0.5"
   }
 }
