@@ -25,21 +25,12 @@ jobs:
       - name: Create output directory
         run: mkdir -p output/allure-results
 
-      - name: Copy previous Allure history
-        run: |
-          if [ -d gh-pages/allure-report/history ]; then
-            cp -R gh-pages/allure-report/history output/allure-results/
-          fi
-
       - name: Run API tests
         run: npm run test
 
-      - name: List output directory contents
-        run: ls -R output
-
       - name: Generate Allure Report
         run: |
-          npx allure generate output/allure-results --clean -o output/allure-report
+          npx allure generate output/allure-results -o output/allure-report
 
       - name: Archive Allure Test Results
         if: always()
