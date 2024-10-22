@@ -1,0 +1,48 @@
+const Ajv = require('ajv');
+const ajv = new Ajv();
+
+const schema = {
+    type: "object",
+    properties: {
+      userId: { type: "integer" },
+      id: { type: "integer" },
+      title: { type: "string" }
+    },
+    required: ["userId", "id", "title"]
+};
+
+const responseJson = pm.response.json();
+
+const validate = ajv.compile(schema);
+const valid = validate(responseJson);
+
+pm.test("Check response schema is valid", function() {
+  pm.expect(valid).to.be.true;
+
+  if (!valid) {
+    console.log(validate.errors); // Log validation errors if schema is invalid
+  }
+});
+pm.test("Check response status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+pm.test("Check response status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+pm.test("Check response time is less than 700ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(700);
+});
+pm.test("Check request headers", function () {
+    pm.response.to.have.header("Content-Type");
+});
+pm.test("Check first album properties value", function () {
+    const expectedData = {
+    "userId": 1,
+    "id": 1,
+    "title": "quidem molestiae enim"
+};
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.userId).to.eql(expectedData.userId);
+    pm.expect(jsonData.id).to.eql(expectedData.id);
+    pm.expect(jsonData.title).to.eql(expectedData.title);
+});

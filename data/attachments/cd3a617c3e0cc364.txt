@@ -1,0 +1,6 @@
+{
+  "userId": 1,
+  "title": "A Sample Entry",
+  "body": "Example 123",
+  "id": 101
+}

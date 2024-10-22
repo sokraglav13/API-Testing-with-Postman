@@ -1,0 +1,7 @@
+{
+  "albumId": 531,
+  "id": 5001,
+  "title": "New Photo",
+  "url": "https://via.placeholder.com/600/92c952",
+  "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+}

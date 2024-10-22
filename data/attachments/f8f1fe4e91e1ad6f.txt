@@ -1,0 +1,3 @@
+{
+    "thumbnailUrl": "https://examplethumb.com"
+}

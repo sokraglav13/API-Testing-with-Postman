@@ -1,0 +1,46 @@
+const Ajv = require('ajv');
+const ajv = new Ajv();
+
+const schema = {
+  type: "array",
+  items: {
+    type: "object",
+    properties: {
+      userId: { type: "integer" },
+      id: { type: "integer" },
+      title: { type: "string" },
+      body: { type: "string" }
+    },
+    required: ["userId", "id", "title", "body"]
+  }
+};
+
+const responseJson = pm.response.json();
+
+const validate = ajv.compile(schema);
+const valid = validate(responseJson);
+
+pm.test("Response schema is valid", function() {
+  pm.expect(valid).to.be.true;
+
+  if (!valid) {
+    console.log(validate.errors); // Log validation errors if schema is invalid
+  }
+});
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+pm.test("Response time is less than 1000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+pm.test("Content-Type is present", function () {
+    pm.response.to.have.header("Content-Type");
+});
+pm.test("Check title property value", function () {
+    const expectedTitle = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit";
+    var jsonData = pm.response.json();
+    pm.expect(jsonData[0].title).to.eql(expectedTitle);
+});

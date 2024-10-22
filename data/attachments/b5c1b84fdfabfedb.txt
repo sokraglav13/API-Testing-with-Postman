@@ -1,0 +1,22 @@
+{
+    "name": "New Name",
+    "username": "Grola",
+    "email": "Sifvcq@adsril.bds",
+    "address": {
+        "street": "Long Aw",
+        "suite": "Apt. 6",
+        "city": "faxcugh",
+        "zipcode": "9328-4332",
+        "geo": {
+            "lat": "-37.1159",
+            "lng": "81.1233"
+        }
+    },
+    "phone": "1-770-736-321 x56321",
+    "website": "hidwsx.org",
+    "company": {
+        "name": "Rxa.ca",
+        "catchPhrase": "Multi-layedsdsa ent-server neural-net",
+        "bs": "harnesdae e-markets"
+    }
+}

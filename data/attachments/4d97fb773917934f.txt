@@ -1,0 +1,55 @@
+const Ajv = require('ajv');
+const ajv = new Ajv();
+
+const schema = {
+    type: "object",
+    properties: {
+      userId: { type: "integer" },
+      id: { type: "integer" },
+      title: { type: "string" },
+      completed: {type: "boolean"}
+    },
+    required: ["userId", "id", "title", "completed"]
+};
+
+const responseJson = pm.response.json();
+
+const validate = ajv.compile(schema);
+const valid = validate(responseJson);
+
+pm.test("Check response schema is valid", function() {
+  pm.expect(valid).to.be.true;
+
+  if (!valid) {
+    console.log(validate.errors); // Log validation errors if schema is invalid
+  }
+});
+pm.test("Check response status code is 201", function () {
+    pm.response.to.have.status(201);
+});
+pm.test("Check response status code name has string", function () {
+    pm.response.to.have.status("Created");
+});
+pm.test("Check response time is less than 1000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+pm.test("Check request headers", function () {
+    pm.response.to.have.header("Content-Type");
+    pm.response.to.have.header("Location");
+    pm.response.to.have.header("Date");
+    pm.response.to.have.header("Content-Length");
+});
+pm.test("Check properties", function () {
+    const expectedResponse = 
+    {
+    "id": 201,
+    "userId": 1,
+    "title": "New Entry",
+    "completed": true
+    }
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.id).to.eql(expectedResponse.id);
+    pm.expect(jsonData.userId).to.eql(expectedResponse.userId);
+    pm.expect(jsonData.title).to.eql(expectedResponse.title);
+    pm.expect(jsonData.completed).to.eql(expectedResponse.completed);
+});

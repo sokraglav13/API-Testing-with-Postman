@@ -1,0 +1,70 @@
+const Ajv = require('ajv');
+const ajv = new Ajv();
+
+const schema = {
+    type: "object",
+    properties: {
+      id: { type: "integer" },
+      name: { type: "string" },
+      username: { type: "string" },
+      email: { type: "string" },
+      address: {
+        street: {type: "string"},
+        asuite: {type: "string"},
+        city: {type: "string"},
+        zipcode: {type: "string"},
+    geo: {
+        lat: {type: "string"},
+        lng: {type: "string"}
+    },
+    },
+    phone: { type: "string" },
+    website:  { type: "string" },
+    company: {
+        name: {type: "string"},
+        catchPhhrase: {type: "string"},
+        bs: {type: "string"}
+    }
+    },
+    required: ["name", "username", "email", "address","phone","website","company","id"]
+};
+
+const responseJson = pm.response.json();
+
+const validate = ajv.compile(schema);
+const valid = validate(responseJson);
+
+pm.test("Check response schema is valid", function() {
+  pm.expect(valid).to.be.true;
+
+  if (!valid) {
+    console.log(validate.errors); // Log validation errors if schema is invalid
+  }
+});
+pm.test("Check response status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+pm.test("Check response status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+pm.test("Check response time is less than 1000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+pm.test("Check request headers", function () {
+    pm.response.to.have.header("Content-Type");
+    pm.response.to.have.header("Date");
+});
+pm.test("Check patched object property value", function () {
+    const expectedObject = {
+        "street": "Aristotelous ",
+        "suite": "Apt. 3",
+        "city": "Thessaloniki",
+        "zipcode": "000-00",
+        "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+        }
+    }
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.address).to.eql(expectedObject);
+});

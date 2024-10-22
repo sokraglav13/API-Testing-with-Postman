@@ -1,0 +1,7 @@
+{
+  "albumId": 8888,
+  "id": 1,
+  "title": "Put Method used",
+  "url": "https://example.com",
+  "thumbnailUrl": "https://placeholder.com"
+}
