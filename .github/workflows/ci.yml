@@ -32,7 +32,8 @@ jobs:
         run: ls -R output
 
       - name: Generate Allure Report
-        run: allure generate output/allure-results --clean -o output/allure-report
+        run: |
+          npx allure generate output/allure-results --clean -o output/allure-report
 
       - name: Archive Allure Test Results
         if: always()
